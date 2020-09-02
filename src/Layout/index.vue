@@ -20,7 +20,7 @@
 import Vue from 'vue'
 import NavBar from './components/NavBar'
 import Sidebar from './components/Sidebar/index'
-import ShowModal from '@/plugins/showModal'
+import ShowModal from '@/components/ShowModal'
 
 export default {
     name:'Layout',
