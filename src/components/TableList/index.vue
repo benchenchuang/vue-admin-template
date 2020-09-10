@@ -2,6 +2,7 @@
     <div class="table_wrap">
         <el-table
             ref="table"
+            v-loading="loading"
             element-loading-text="Loading"
             :data="tableData"
             border
@@ -62,6 +63,10 @@
 export default {
     name:"TableList",
     props:{
+        loading:{
+            type:Boolean,
+            default:false
+        },
         showIndex:{
             type:Boolean,
             default:false,
@@ -92,6 +97,9 @@ export default {
             page:1
         }
     },
+    created(){
+
+    },
     methods:{
         //选中的选项
         handleSelectionChange(e){
@@ -110,7 +118,6 @@ export default {
         handleButton(row,method) {
             this.$emit('action',{'row':row,'method':method});
         },
-        
     }
 }
 </script>

@@ -22,6 +22,7 @@
           :table-data="state.tableData"
           :table-label="state.tableLabel"
           :pageSize = 10
+          :loading = "loading"
           @current="currentPage"
           @action="tableAction"
           @selectionChange="tableSelection">
@@ -44,6 +45,7 @@ export default {
     setup() {
       const state = reactive({
         count: 0,
+        loading:false,
         double: computed(() => state.count + 4),
         formInline:{
           user:'',
@@ -110,6 +112,8 @@ export default {
         })
       }
 
+      
+
       return {
         state,
         increment,
@@ -122,6 +126,10 @@ export default {
       }
     },
     created() {
+      this.loading = true;
+      setTimeout(()=>{
+        this.loading = false;
+      },3000)
         this.$EventBus.$off(BROADCAST.ADMIN_CONTRACT_LIST);
         this.$EventBus.$on(BROADCAST.ADMIN_CONTRACT_LIST, this.search);
     },
