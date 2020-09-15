@@ -26,12 +26,17 @@
                     align="center">
                 </el-table-column>
                 <template v-for="(item,index) in tableLabel">
-                    <el-table-column v-if="item.param!='action'" :key="item.param" :width="item.width ? item.width : 'auto'" align="center" :label="item.label" :prop="item.param" :sortable="item.sortable ? 'custom' : false">
+                    <el-table-column v-if="item.key!='action'" :key="item.key" :width="item.width ? item.width : 'auto'" align="center" :label="item.label" :prop="item.param" :sortable="item.sortable ? 'custom' : false">
                         <template slot-scope="scope">
-                            <span v-if="item.render">
-                                {{item.render(scope.row)}}
-                            </span>
-                            <span v-else>{{scope.row[item.param]}}</span>
+                            <div v-if="item.slot">
+                                <slot :name="item.slot" :item="scope.row" :index="scope.$index"></slot>
+                            </div>
+                            <div v-else>
+                                <span v-if="item.render">
+                                    {{item.render(scope.row)}}
+                                </span>
+                                <span v-else>{{scope.row[item.key]}}</span>
+                            </div>
                         </template>
                     </el-table-column>
                     <el-table-column v-else 

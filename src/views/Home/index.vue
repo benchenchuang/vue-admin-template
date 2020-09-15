@@ -26,6 +26,12 @@
           @current="currentPage"
           @action="tableAction"
           @selectionChange="tableSelection">
+          <template slot-scope="props" slot="operate">
+            <p>{{props.item.registTime}}</p>
+          </template>
+          <template slot-scope="props" slot="registTime">
+            <p>{{props.index}}</p>
+          </template>
           <template slot-scope="props" slot="action">
             <el-button type="primary" @click="test(props)">测试</el-button>
             <el-button @click="test(props)">测试</el-button>
@@ -45,7 +51,7 @@ export default {
     setup() {
       const state = reactive({
         count: 0,
-        loading:false,
+        loading:true,
         double: computed(() => state.count + 4),
         formInline:{
           user:'',
@@ -54,14 +60,16 @@ export default {
         tableData:[{
           usr:'1111',
           company:'564646',
-          email:'emaill@qq.com'
+          email:'emaill@qq.com',
+          registTime:"12313213"
         }],
         tableLabel: [
-              { label: '用户名', param: 'usr', width: '200',},
-              { label: '公司名称', param: 'company' },
-              { label: '办公邮箱', param: 'email', width:'200' },
-              { label: '注册时间', param: 'registTime',},
-              { label: '审核状态', param: 'status', render:  (row) => {
+              { label: '用户名', key: 'usr', width: '200',},
+              { label: '公司名称', key: 'company' },
+              { label: '办公邮箱', key: 'email', width:'200' },
+              { label: '注册时间', slot: 'registTime',},
+              { label: '测试时间', slot:'operate'},
+              { label: '审核状态', key: 'status', render:  (row) => {
                   if (row.status === 0) {
                     return '未审核'
                   } else if (row.status === 1) {
@@ -75,7 +83,7 @@ export default {
               },
               {
                 label:'操作',
-                param:'action',
+                key:'action',
                 fixed:'right',
                 width:"150"
               }
@@ -129,7 +137,7 @@ export default {
       this.loading = true;
       setTimeout(()=>{
         this.loading = false;
-      },3000)
+      },200)
         this.$EventBus.$off(BROADCAST.ADMIN_CONTRACT_LIST);
         this.$EventBus.$on(BROADCAST.ADMIN_CONTRACT_LIST, this.search);
     },
