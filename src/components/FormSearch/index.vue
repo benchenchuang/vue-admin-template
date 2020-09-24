@@ -38,7 +38,7 @@ export default {
     }
 }
 .form-inline{
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     padding: 20px 20px 0;
     box-sizing: border-box;
     background: #fff;

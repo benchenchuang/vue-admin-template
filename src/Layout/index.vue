@@ -11,8 +11,9 @@
                         <router-view :key="key" />
                     </keep-alive>
                 </transition>
-                <show-modal ref="modal"></show-modal>
+                <p class="site_footer">常州人生无限有限公司</p>
             </section>
+            <show-modal ref="modal"></show-modal>
         </div>
     </div>
 </template>
@@ -56,9 +57,31 @@ export default {
         transition: width .28s;
     }
     .app-main{
-        margin: 60px 10px 10px;
-        min-height: calc(100vh - 70px);
+        position: fixed;
+        left: 220px;
+        top: 60px;
+        right: 10px;
+        bottom: 0;
+        display: flex;
+        display: -webkit-flex;
+        flex-direction: column;
+        // padding: 60px 10px 10px;
+        // min-height: calc(100vh - 70px);
         box-sizing: border-box;
+        .site_wrap{
+            flex: 1;
+            -webkit-flex:1;
+            display: flex;
+            display: -webkit-flex;
+            flex-direction: column;
+            height: 90%;
+        }
+        .site_footer{
+            margin: 10px 0;
+            text-align: center;
+            font-size: 12px;
+            color: #999;
+        }
     }
 }
 </style>

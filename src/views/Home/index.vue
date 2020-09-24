@@ -1,5 +1,5 @@
 <template>
-    <div class="home">
+    <div class="site_wrap">
         <form-search @search="search()" @reset="reset()">
             <template slot="form">
                 <el-form-item label="审批人">
@@ -62,13 +62,68 @@ export default {
           company:'564646',
           email:'emaill@qq.com',
           registTime:"12313213"
-        }],
+        },
+        {
+          usr:'1111',
+          company:'564646',
+          email:'emaill@qq.com',
+          registTime:"12313213"
+        },
+        {
+          usr:'1111',
+          company:'564646',
+          email:'emaill@qq.com',
+          registTime:"12313213"
+        },
+        {
+          usr:'1111',
+          company:'564646',
+          email:'emaill@qq.com',
+          registTime:"12313213"
+        },
+        {
+          usr:'1111',
+          company:'564646',
+          email:'emaill@qq.com',
+          registTime:"12313213"
+        },
+        {
+          usr:'1111',
+          company:'564646',
+          email:'emaill@qq.com',
+          registTime:"12313213"
+        },
+        {
+          usr:'1111',
+          company:'564646',
+          email:'emaill@qq.com',
+          registTime:"12313213"
+        },
+        {
+          usr:'1111',
+          company:'564646',
+          email:'emaill@qq.com',
+          registTime:"12313213"
+        },
+        {
+          usr:'1111',
+          company:'564646',
+          email:'emaill@qq.com',
+          registTime:"12313213"
+        },
+        {
+          usr:'1111',
+          company:'564646',
+          email:'emaill@qq.com',
+          registTime:"12313213"
+        }
+        ],
         tableLabel: [
               { label: '用户名', key: 'usr', width: '200',},
-              { label: '公司名称', key: 'company' },
+              { label: '公司名称', key: 'company',width:'300'},
               { label: '办公邮箱', key: 'email', width:'200' },
               { label: '注册时间', slot: 'registTime',},
-              { label: '测试时间', slot:'operate'},
+              { label: '测试时间', slot:'operate',fixed:'right'},
               { label: '审核状态', key: 'status', render:  (row) => {
                   if (row.status === 0) {
                     return '未审核'

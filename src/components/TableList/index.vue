@@ -2,14 +2,14 @@
     <div class="table_wrap">
         <el-table
             ref="table"
+            class="table_box"
             v-loading="loading"
             element-loading-text="Loading"
             :data="tableData"
+            height="350"
             border
-            :fit="true"
             size="small"
-            @selection-change="handleSelectionChange"
-            style="width:99.9%;overflow:auto;">
+            @selection-change="handleSelectionChange">
             <!-- // table的第一列是判断是否为序号（showIndex）或者是选择框(showSelection) -->
                 <el-table-column
                     v-if="showIndex"
@@ -26,7 +26,7 @@
                     align="center">
                 </el-table-column>
                 <template v-for="(item,index) in tableLabel">
-                    <el-table-column v-if="item.key!='action'" :key="item.key" :width="item.width ? item.width : 'auto'" align="center" :label="item.label" :prop="item.param" :sortable="item.sortable ? 'custom' : false">
+                    <el-table-column v-if="item.key!='action'" :key="item.key" :fixed="item.fixed?item.fixed:false" :width="item.width ? item.width : 'auto'" align="center" :label="item.label" :prop="item.param" :sortable="item.sortable ? 'custom' : false">
                         <template slot-scope="scope">
                             <div v-if="item.slot">
                                 <slot :name="item.slot" :item="scope.row" :index="scope.$index"></slot>
@@ -126,19 +126,21 @@ export default {
     }
 }
 </script>
-<style lang="less">
 
-.el-table__empty-block{
-    min-height: 200px;
-}
-</style>
 <style lang="less" scoped>
 .table_wrap{
+    display: flex;
+    display: -webkit-flex;
+    flex-direction: column;
+    flex: 1;
+    -webkit-flex:1;
     padding: 20px;
     background: #fff;
     box-sizing: border-box;
-    .table_list{
-        width: 100%;
+    overflow: hidden;
+    .table_box{
+        flex: 1;
+        -webkit-flex:1;
     }
     .pagination_box{
         margin-top: 20px;
