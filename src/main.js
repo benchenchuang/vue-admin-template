@@ -2,6 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import store from './store'
 import router from "./router";
+// import perfectScrollBar from './directive'
 import ElementUI from 'element-ui';
 import '../theme/index.css';
 import { Plugin } from 'vue-fragment'

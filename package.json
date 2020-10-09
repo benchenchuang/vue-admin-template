@@ -12,6 +12,7 @@
     "clipboard": "^2.0.6",
     "core-js": "^3.6.5",
     "element-ui": "^2.4.5",
+    "perfect-scrollbar": "^1.5.0",
     "vue": "^2.6.11",
     "vue-fragment": "^1.5.1",
     "vue-router": "^3.1.6",

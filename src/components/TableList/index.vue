@@ -6,7 +6,7 @@
             v-loading="loading"
             element-loading-text="Loading"
             :data="tableData"
-            height="350"
+            height="650"
             border
             size="small"
             @selection-change="handleSelectionChange">
@@ -138,6 +138,10 @@ export default {
     background: #fff;
     box-sizing: border-box;
     overflow: hidden;
+    .table_scroll{
+        flex: 1;
+        -webkit-flex:1;
+    }
     .table_box{
         flex: 1;
         -webkit-flex:1;
