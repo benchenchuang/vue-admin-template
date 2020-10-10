@@ -13,7 +13,7 @@ export const asyncRoutes = [
         children: [
             {
                 path: '/home',
-                component: () => import('@/views/Home/index'),
+                component: () => import(/* webpackChunkName: 'home' */'@/views/Home/index'),
                 name: 'home',
                 meta: {
                 title: '首页',
@@ -24,7 +24,7 @@ export const asyncRoutes = [
             },
             {
                 path: '/set',
-                component: () => import('@/views/Home/index'),
+                component: () => import(/* webpackChunkName: 'set' */'@/views/Home/index'),
                 name: 'set',
                 meta: {
                   title: 'shezhi',
@@ -48,7 +48,7 @@ export const asyncRoutes = [
       children: [
         {
           path: 'index',
-          component: () => import('@/views/User/index'),
+          component: () => import(/* webpackChunkName: 'user' */'@/views/User/index'),
           name: 'user',
           meta: {
             title: '个人中心',
@@ -72,7 +72,7 @@ export const asyncRoutes = [
       children: [
         {
           path: 'index',
-          component: () => import('@/views/Permission/index'),
+          component: () => import(/* webpackChunkName: 'permission' */'@/views/Permission/index'),
           name: 'permission',
           meta: {
             title: '权限中心',

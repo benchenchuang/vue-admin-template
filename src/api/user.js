@@ -1,9 +1,5 @@
-import * as axiosApi from './request'
-export default{
-    userLogin:(params)=>{
-        return axiosApi.postAixos(`user/login`,params)
-    },
-    getUserInfo:()=>{
-        return axiosApi.getAxios('user/info')
-    }
-}
+import {postAixos} from './request'
+
+export const userLogin=()=>{ return postAixos(`user/login`,params)};
+
+export const getUserInfo=()=>{ return postAixos(`user/info`,params)};
