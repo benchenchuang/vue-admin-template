@@ -1,8 +1,10 @@
 import FormSearch from "@/components/FormSearch";
 import TableList from "@/components/TableList";
+import TablePage from '@/components/TablePage'
 
 export default {
   components:{
+    TablePage,
     FormSearch,
     TableList,
   },

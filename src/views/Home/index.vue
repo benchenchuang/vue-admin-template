@@ -1,43 +1,47 @@
 <template>
-    <div class="site_wrap">
-        <form-search @search="search()" @reset="reset()">
-            <template slot="form">
-                <el-form-item label="审批人">
-                  <el-input v-model="state.formInline.user" placeholder="审批人"></el-input>
-                </el-form-item>
-                <el-form-item label="活动区域">
-                  <el-select v-model="state.formInline.region" placeholder="活动区域">
-                    <el-option label="区域一" value="shanghai"></el-option>
-                    <el-option label="区域二" value="beijing"></el-option>
-                  </el-select>
-                </el-form-item>
+    <table-page>
+        <template #header>
+          <form-search @search="search()" @reset="reset()">
+              <template slot="form">
+                  <el-form-item label="审批人">
+                    <el-input v-model="state.formInline.user" placeholder="审批人"></el-input>
+                  </el-form-item>
+                  <el-form-item label="活动区域">
+                    <el-select v-model="state.formInline.region" placeholder="活动区域">
+                      <el-option label="区域一" value="shanghai"></el-option>
+                      <el-option label="区域二" value="beijing"></el-option>
+                    </el-select>
+                  </el-form-item>
+              </template>
+              <template slot="extra">
+                <el-button @click="showModalEvent">显示modal</el-button>
+              </template>
+          </form-search>
+        </template>
+        <template #content>
+          <table-list
+            :showIndex = true
+            :showSelection = true
+            :table-data="state.tableData"
+            :table-label="state.tableLabel"
+            :pageSize = 10
+            :loading = "loading"
+            @current="currentPage"
+            @action="tableAction"
+            @selectionChange="tableSelection">
+            <template slot-scope="props" slot="operate">
+              <p>{{props.item.registTime}}</p>
             </template>
-            <template slot="extra">
-              <el-button @click="showModalEvent">显示modal</el-button>
+            <template slot-scope="props" slot="registTime">
+              <p>{{props.index}}</p>
             </template>
-        </form-search>
-        <table-list
-          :showIndex = true
-          :showSelection = true
-          :table-data="state.tableData"
-          :table-label="state.tableLabel"
-          :pageSize = 10
-          :loading = "loading"
-          @current="currentPage"
-          @action="tableAction"
-          @selectionChange="tableSelection">
-          <template slot-scope="props" slot="operate">
-            <p>{{props.item.registTime}}</p>
-          </template>
-          <template slot-scope="props" slot="registTime">
-            <p>{{props.index}}</p>
-          </template>
-          <template slot-scope="props" slot="action">
-            <el-button type="primary" @click="test(props)">测试</el-button>
-            <el-button @click="test(props)">测试</el-button>
-          </template>
-        </table-list>
-    </div>
+            <template slot-scope="props" slot="action">
+              <el-button type="primary" @click="test(props)">测试</el-button>
+              <el-button @click="test(props)">测试</el-button>
+            </template>
+          </table-list>
+        </template>
+    </table-page>
 </template>
 <script>
 import { reactive, computed } from '@vue/composition-api'
