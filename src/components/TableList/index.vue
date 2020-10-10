@@ -1,16 +1,15 @@
 <template>
     <div class="table_wrap">
-        <el-table
-            ref="table"
-            class="table_box"
-            v-loading="loading"
-            element-loading-text="Loading"
-            :data="tableData"
-            height="650"
-            border
-            size="small"
-            @selection-change="handleSelectionChange">
-            <!-- // table的第一列是判断是否为序号（showIndex）或者是选择框(showSelection) -->
+        <!-- <el-table-bar class="table_scroll" :fixed="true" :native="true"> -->
+            <el-table
+                v-loading="loading"
+                element-loading-text="Loading"
+                :data="tableData"
+                height="650"
+                border
+                size="small"
+                @selection-change="handleSelectionChange">
+                <!-- // table的第一列是判断是否为序号（showIndex）或者是选择框(showSelection) -->
                 <el-table-column
                     v-if="showIndex"
                     width="55"
@@ -51,7 +50,8 @@
                         </template>
                     </el-table-column>
                 </template>
-        </el-table>
+            </el-table>
+        <!-- </el-table-bar> -->
         <div class="pagination_box">
             <el-pagination
                 background
@@ -141,10 +141,12 @@ export default {
     .table_scroll{
         flex: 1;
         -webkit-flex:1;
+        overflow: hidden;
     }
     .table_box{
         flex: 1;
         -webkit-flex:1;
+        overflow: hidden;
     }
     .pagination_box{
         margin-top: 20px;

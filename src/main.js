@@ -3,18 +3,14 @@ import App from './App.vue'
 import store from './store'
 import router from "./router";
 // import perfectScrollBar from './directive'
-import ElementUI from 'element-ui';
 import '../theme/index.css';
-import { Plugin } from 'vue-fragment'
-Vue.use(Plugin)
+import Plugin from '@/plugins'
 
+Plugin();//element组件
 import * as filters from '@/utils/filters'
 Object.keys(filters).forEach(key=>Vue.filter(key,filters[key]));
 
-
 Vue.config.productionTip = false
-
-Vue.use(ElementUI,{ size: 'small'});
 
 import VueCompositionApi from '@vue/composition-api'
 Vue.use(VueCompositionApi)

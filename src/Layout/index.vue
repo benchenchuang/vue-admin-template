@@ -74,7 +74,7 @@ export default {
             display: flex;
             display: -webkit-flex;
             flex-direction: column;
-            height: 90%;
+            overflow: hidden;
         }
         .site_footer{
             margin: 10px 0;
