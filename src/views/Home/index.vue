@@ -20,25 +20,16 @@
         </template>
         <template #content>
           <table-list
-            :showIndex = true
-            :showSelection = true
-            :table-data="state.tableData"
-            :table-label="state.tableLabel"
-            :pageSize = 10
-            :loading = "loading"
-            @current="currentPage"
-            @action="tableAction"
-            @selectionChange="tableSelection">
-            <template slot-scope="props" slot="operate">
-              <p>{{props.item.registTime}}</p>
-            </template>
-            <template slot-scope="props" slot="registTime">
-              <p>{{props.index}}</p>
+            :data="state.tableData"
+            :tableHeader="state.tableLabel">
+            <template slot-scope="props" slot="checkbox">
+              <el-checkbox />
             </template>
             <template slot-scope="props" slot="action">
               <el-button type="primary" @click="test(props)">测试</el-button>
               <el-button @click="test(props)">测试</el-button>
             </template>
+            <template slot="total">总共120条数据线</template>
           </table-list>
         </template>
     </table-page>
@@ -159,11 +150,12 @@ export default {
         }
         ],
         tableLabel: [
-              { label: '用户名', key: 'usr', width: '200',},
-              { label: '公司名称', key: 'company',width:'300'},
-              { label: '办公邮箱', key: 'email', width:'200' },
-              { label: '注册时间', slot: 'registTime',},
-              { label: '测试时间', slot:'operate',fixed:'right'},
+              { label: '多选', key:'checkbox',type: 'selection', width: '100',},
+              { label: '用户名', key: 'usr', width: '150',},
+              { label: '公司名称', key: 'company',width:'180'},
+              { label: '办公邮箱', key: 'email', width:'150'},
+              { label: '注册时间', key: 'registTime',width:120},
+              { label: '测试时间', key:'operate',fixed:'right',width:160},
               { label: '审核状态', key: 'status', render:  (row) => {
                   if (row.status === 0) {
                     return '未审核'

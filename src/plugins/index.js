@@ -23,6 +23,7 @@ import {
     Dialog,
     Loading,
     Message,
+    Checkbox,
     Pagination
  } from 'element-ui'
 import ElTableBar from 'el-table-bar-base'
@@ -51,6 +52,7 @@ export default ()=>{
     Vue.use(Table)
     Vue.use(TableColumn)
     Vue.use(Dialog)
+    Vue.use(Checkbox)
     Vue.use(Pagination)
 
     Vue.use(Loading.directive);

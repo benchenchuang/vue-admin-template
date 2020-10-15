@@ -16,12 +16,7 @@ module.exports = {
   css: {
     loaderOptions: {
       less: {
-        additionalData: `@import "@/assets/style/var.less";`,
-      },
-      less: {
-        lessOptions: {
-          javascriptEnabled: true,
-        },
+        prependData: `@import "@/assets/style/var.less";`,
       },
     },
   },

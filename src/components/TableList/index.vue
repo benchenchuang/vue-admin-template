@@ -1,133 +1,102 @@
 <template>
     <div class="table_wrap">
-        <!-- <el-table-bar class="table_scroll" :fixed="true" :native="true"> -->
-            <el-table
-                v-loading="loading"
-                element-loading-text="Loading"
-                :data="tableData"
-                height="650"
-                border
-                size="small"
-                @selection-change="handleSelectionChange">
-                <!-- // table的第一列是判断是否为序号（showIndex）或者是选择框(showSelection) -->
-                <el-table-column
-                    v-if="showIndex"
-                    width="55"
-                    label="序号"
-                    type="index"
-                    align="center"
-                    :index="indexMethod">
-                </el-table-column>
-                <el-table-column
-                    v-if="showSelection"
-                    width="55"
-                    type="selection"
-                    align="center">
-                </el-table-column>
-                <template v-for="(item,index) in tableLabel">
-                    <el-table-column v-if="item.key!='action'" :key="item.key" :fixed="item.fixed?item.fixed:false" :width="item.width ? item.width : 'auto'" align="center" :label="item.label" :prop="item.param" :sortable="item.sortable ? 'custom' : false">
-                        <template slot-scope="scope">
-                            <div v-if="item.slot">
-                                <slot :name="item.slot" :item="scope.row" :index="scope.$index"></slot>
-                            </div>
-                            <div v-else>
-                                <span v-if="item.render">
-                                    {{item.render(scope.row)}}
-                                </span>
-                                <span v-else>{{scope.row[item.key]}}</span>
-                            </div>
-                        </template>
-                    </el-table-column>
-                    <el-table-column v-else 
-                        :fixed="item.fixed" 
-                        :key="index"
-                        align="center"
-                        header-align="center"
-                        :label="item.label"
-                        :width="item.width">
-                        <template slot-scope="scope">
-                            <slot name="action" :item="scope.row" :index="scope.$index"></slot>
-                        </template>
-                    </el-table-column>
-                </template>
-            </el-table>
-        <!-- </el-table-bar> -->
-        <div class="pagination_box">
+        <el-table
+            class="table_box"
+            :data="data"
+            :height="tableHeight"
+            :row-class-name="showEmergencyLine"
+            :highlight-current-row="true"
+            border
+            element-loading-spinner="el-icon-loading"
+            element-loading-text="拼命加载中"
+            element-loading-background="rgba(255, 255, 255, 0.8)"
+            @selection-change="handleSelectionChange"
+            v-loading.lock="isLock"
+            header-cell-class-name="table_header">
+            <el-table-column
+                v-for="header in tableHeader"
+                :type="header.type"
+                :prop="header.key"
+                :key="header.label"
+                :label="header.label"
+                :width="header.width"
+                :fixed="header.fixed"
+                :align="header.align || 'center'"
+                header-align="center">
+                    <template slot-scope="scope">
+                        <slot :name="scope.column.property" :row="scope.row" :$index="scope.$index" >
+                            <div>{{scope.row[scope.column.property]}}</div>
+                        </slot>
+                    </template>
+            </el-table-column>
+        </el-table>
+        <div class="pagination_box flex">
             <el-pagination
                 background
                 layout="prev, pager, next"
                 :page-size="pageSize"
-                :total="tableData.length"
+                :total="data.length"
                 @current-change="changePage"
                 >
             </el-pagination>
+            <span class="total_num"><slot name="total"></slot></span>
         </div>
     </div>
 </template>
 <script>
 export default {
-    name:"TableList",
+    name:"CCTable",
     props:{
-        loading:{
-            type:Boolean,
-            default:false
+        data:{
+            type: Array,
+            default: []
         },
-        showIndex:{
-            type:Boolean,
-            default:false,
+        tableHeader:{
+            type: Array,
+            default: []
         },
-        showSelection:{
-            type:Boolean,
-            default:false,
+        tableHeight:{
+            type: Number,
+            default: 600
         },
-        tableData:{
-            type:Array,
-            default: () => {
-                return []
-            }
+        isLock:{
+            type: Boolean,
+            default: false
         },
-        tableLabel:{
-            type:Array,
-            default: () => {
-                return []
-            }
+        showEmergencyLine:{
+            type:String,
+            default:'cc_row'
         },
         pageSize:{
-            type:Number,
-            default:10
+            type: Number,
+            default: 10
         }
-    },
-    data(){
-        return{
-            page:1
-        }
-    },
-    created(){
-
     },
     methods:{
         //选中的选项
         handleSelectionChange(e){
+            console.log(e)
             this.$emit('selectionChange',e)
-        },
-        //序号
-        indexMethod(index){
-            return (this.page-1)*this.pageSize+(index+1)
         },
         //翻页查看
         changePage(e){
             this.page = e;
             this.$emit('current',e)
-        },
-        //操作事件
-        handleButton(row,method) {
-            this.$emit('action',{'row':row,'method':method});
-        },
+        }
     }
 }
 </script>
-
-<style lang="less" scoped>
+<style lang="less">
+.el-icon-loading{
+    font-size: 16px;
+}
+.table_header{
+    color: #666;
+    font-size: 14px;
+    height: 44px;
+    font-weight: 500;
+    background: #f7f7f7!important;
+}
 .table_wrap{
     display: flex;
     display: -webkit-flex;
@@ -148,9 +117,15 @@ export default {
         -webkit-flex:1;
         overflow: hidden;
     }
-    .pagination_box{
-        margin-top: 20px;
-        text-align: right;
+}
+.pagination_box{
+    margin-top: 20px;
+    text-align: right;
+    flex-direction: row-reverse;
+    .total_num{
+        margin-right: 10px;
+        font-size: 13px;
+        color: #696969;
     }
 }
 </style>
