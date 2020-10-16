@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import store from '@/store/index'
 import {constantRoutes} from './constantRoutes'
+import {msg} from '@/utils/msg'
 
 Vue.use(Router);
 
@@ -10,6 +11,7 @@ let router = new Router({
 })
 
 router.beforeEach((to, from, next) => {
+  msg.startLoading();
   let parentName = to.meta.parentName || to.name;
 //   store.dispatch('parentName', parentName)
   
@@ -47,5 +49,6 @@ router.beforeEach((to, from, next) => {
       next()
     }
   }
+  msg.finishLoading();
 })
 export default router

@@ -26,6 +26,8 @@ import {
     Checkbox,
     Pagination
  } from 'element-ui'
+ 
+import '../../theme/index.css';
 import ElTableBar from 'el-table-bar-base'
 import 'el-table-bar-base/lib/ElTableBar.css'
 

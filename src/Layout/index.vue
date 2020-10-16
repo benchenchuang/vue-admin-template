@@ -7,9 +7,11 @@
             </div>
             <section class="app-main">
                 <transition name="fade-transform" mode="out-in">
-                    <keep-alive>
-                        <router-view :key="key" />
-                    </keep-alive>
+                    <div class="app-content">
+                        <keep-alive>
+                            <router-view :key="key" />
+                        </keep-alive>
+                    </div>
                 </transition>
                 <p class="site_footer">常州人生无限有限公司</p>
             </section>
@@ -68,6 +70,7 @@ export default {
         // padding: 60px 10px 10px;
         // min-height: calc(100vh - 70px);
         box-sizing: border-box;
+        .app-content,
         .site_wrap{
             flex: 1;
             -webkit-flex:1;

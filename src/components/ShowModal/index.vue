@@ -1,6 +1,6 @@
 <template>
     <div>
-        <el-dialog :visible.sync="showDialog" :show-close="false">
+        <el-dialog :visible.sync="showDialog" :close-on-click-modal="false">
             <span slot="title" class="dialog-title">{{title}}</span>
             <div class="content">
                 <component :is="component"></component>
@@ -41,10 +41,22 @@ export default {
 }
 </script>
 <style lang="less">
+.el-dialog{
+    width: 500px!important;
+    border-radius: 4px!important;
+    overflow: hidden;
+}
 .el-dialog__header{
+    padding: 12px!important;
     font-size: 15px;
     color: #fff;
     text-align: center;
-    background: #561DF1;
+    background: @mainColor;
+    .el-dialog__headerbtn{
+        top: 15px;
+    }
+    .el-icon{
+        color: #fff!important;
+    }
 }
 </style>

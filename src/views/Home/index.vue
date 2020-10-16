@@ -182,7 +182,18 @@ export default {
       }
 
       function search(){
-        console.log('search')
+        this.showSuccess('....222222......')
+        // this.showModelInfo('111111','222',function(){
+        //   console.log('ok')
+        // })
+        let that = this;
+        this.showConfirm({
+          message:'提示消息'
+        },async (msg)=>{
+          console.log(msg)
+        },async (err)=>{
+          console.log(err)
+        })
       }
       function currentPage(e){
         console.log(e)
