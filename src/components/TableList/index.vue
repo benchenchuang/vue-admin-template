@@ -11,24 +11,30 @@
             element-loading-text="拼命加载中"
             element-loading-background="rgba(255, 255, 255, 0.8)"
             @selection-change="handleSelectionChange"
+            @sort-change="sortChange"
             v-loading.lock="isLock"
             header-cell-class-name="table_header">
-            <el-table-column
-                v-for="header in tableHeader"
-                :type="header.type"
-                :prop="header.key"
-                :key="header.label"
-                :label="header.label"
-                :width="header.width"
-                :fixed="header.fixed"
-                :align="header.align || 'center'"
-                header-align="center">
-                    <template slot-scope="scope">
-                        <slot :name="scope.column.property" :row="scope.row" :$index="scope.$index" >
-                            <div>{{scope.row[scope.column.property]}}</div>
-                        </slot>
-                    </template>
-            </el-table-column>
+            <template v-for="header in tableHeader">
+                <el-table-column
+                    :prop="header.key"
+                    :key="header.label"
+                    :label="header.label"
+                    :width="header.width"
+                    :fixed="header.fixed"
+                    :sortable="header.sortable"
+                    :align="header.align || 'center'"
+                    header-align="center">
+                        <template slot="header">
+                            <slot :name="'header-'+header.key"></slot>
+                        </template>
+                        <template slot-scope="scope">
+                            <slot :name="scope.column.property" :row="scope.row" :$index="scope.$index" >
+                                <ex-slot v-if="header.render" :render="header.render" :row="scope.row" :index="scope.$index" :column="header" />
+                                <div v-else>{{scope.row[scope.column.property]}}</div>
+                            </slot>
+                        </template>
+                </el-table-column>
+            </template>
         </el-table>
         <div class="pagination_box flex">
             <el-pagination
@@ -44,8 +50,30 @@
     </div>
 </template>
 <script>
+// 自定义内容的组件
+var exSlot = {
+    functional: true,
+    props: {
+        row: Object,
+        render: Function,
+        index: Number,
+        column: {
+            type: Object,
+            default: null
+        }
+    },
+    render: (createElement, data) => {
+        let renderHtml = `${data.props.render(data.props.row)}`;
+        return createElement(
+            'div',
+            {},
+            [renderHtml]
+        )
+    }
+}
 export default {
     name:"CCTable",
+    components: { exSlot },
     props:{
         data:{
             type: Array,
@@ -78,11 +106,25 @@ export default {
             console.log(e)
             this.$emit('selectionChange',e)
         },
+        //排序
+        sortChange(e){
+            console.log(e)
+            this.$emit('sortChange',e)
+        },
         //翻页查看
         changePage(e){
             this.page = e;
             this.$emit('current',e)
-        }
+        },
+        // render 事件>>>>>其实实现原理 是根据vue中的render函数来实现>>>渲染表头
+        renderHeader(h,{column}) { // h即为cerateElement的简写，具体可看vue官方文档
+          return h(
+          'span',
+            {domProps: {           //此方法可渲染html代码column.label==='红色<br/>'
+                innerHTML: `${column.label}`
+              },},
+            [],);
+        },
     }
 }
 </script>

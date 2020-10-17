@@ -22,6 +22,9 @@
           <table-list
             :data="state.tableData"
             :tableHeader="state.tableLabel">
+            <template slot="header-checkbox">
+              <el-checkbox />全选
+            </template>
             <template slot-scope="props" slot="checkbox">
               <el-checkbox />
             </template>
@@ -56,13 +59,15 @@ export default {
           usr:'1111',
           company:'564646',
           email:'emaill@qq.com',
-          registTime:"12313213"
+          registTime:"12313213",
+          status:1,
         },
         {
           usr:'1111',
           company:'564646',
           email:'emaill@qq.com',
-          registTime:"12313213"
+          registTime:"12313213",
+          status:2,
         },
         {
           usr:'1111',
@@ -150,13 +155,13 @@ export default {
         }
         ],
         tableLabel: [
-              { label: '多选', key:'checkbox',type: 'selection', width: '100',},
-              { label: '用户名', key: 'usr', width: '150',},
+              { label: '多选', key:'checkbox',type: 'selection',fixed:'left', width: '80',},
+              { label: '用户名', key: 'usr', width: '150',sortable:true},
               { label: '公司名称', key: 'company',width:'180'},
               { label: '办公邮箱', key: 'email', width:'150'},
               { label: '注册时间', key: 'registTime',width:120},
               { label: '测试时间', key:'operate',fixed:'right',width:160},
-              { label: '审核状态', key: 'status', render:  (row) => {
+              { label: '审核状态', key: 'status',width:120, render:  (row) => {
                   if (row.status === 0) {
                     return '未审核'
                   } else if (row.status === 1) {
@@ -181,19 +186,21 @@ export default {
         state.count++
       }
 
+      
+
       function search(){
-        this.showSuccess('....222222......')
+        // this.showSuccess('....222222......')
         // this.showModelInfo('111111','222',function(){
         //   console.log('ok')
         // })
         let that = this;
-        this.showConfirm({
-          message:'提示消息'
-        },async (msg)=>{
-          console.log(msg)
-        },async (err)=>{
-          console.log(err)
-        })
+        // this.showConfirm({
+        //   message:'提示消息'
+        // },async (msg)=>{
+        //   console.log(msg)
+        // },async (err)=>{
+        //   console.log(err)
+        // })
       }
       function currentPage(e){
         console.log(e)
@@ -228,8 +235,11 @@ export default {
         tableAction,
         tableSelection,
         test,
-        showModalEvent
+        showModalEvent,
       }
+    },
+    methods:{
+        
     },
     created() {
       this.loading = true;
