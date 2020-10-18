@@ -24,14 +24,26 @@ import {
     Loading,
     Message,
     Checkbox,
+    Tree,
     Pagination
  } from 'element-ui'
+
+ import CommonBlock from './CommonBlock'
+ import FormBlock from './FormBlock'
+ import FormColumn from './FormColumn'
+
  
 import '../../theme/index.css';
 import ElTableBar from 'el-table-bar-base'
 import 'el-table-bar-base/lib/ElTableBar.css'
 
+
 export default ()=>{
+
+    Vue.component('CommonBlock',CommonBlock)
+    Vue.component('FormBlock',FormBlock)
+    Vue.component('FormColumn',FormColumn)
+
     Vue.use(ElTableBar)
     Vue.use(Button)
     Vue.use(Scrollbar)
@@ -55,6 +67,7 @@ export default ()=>{
     Vue.use(TableColumn)
     Vue.use(Dialog)
     Vue.use(Checkbox)
+    Vue.use(Tree)
     Vue.use(Pagination)
 
     Vue.use(Loading.directive);

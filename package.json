@@ -29,6 +29,8 @@
     "less-loader": "^6.2.0",
     "sass": "^1.26.10",
     "sass-loader": "^9.0.2",
+    "scss": "^0.2.4",
+    "scss-loader": "0.0.1",
     "stylus": "^0.54.7",
     "stylus-loader": "^3.0.2",
     "vue-template-compiler": "^2.6.12",

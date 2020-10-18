@@ -17,7 +17,7 @@ module.exports = {
     loaderOptions: {
       less: {
         prependData: `@import "@/assets/style/var.less";`,
-      },
+      }
     },
   },
   publicPath: '/',
@@ -40,5 +40,5 @@ module.exports = {
         ws: true,
       },
     },
-  },
+  }
 };

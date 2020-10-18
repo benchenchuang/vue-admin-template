@@ -1,5 +1,5 @@
 <template>
-    <el-form :inline="true" size="small" class="form-inline form_box">
+    <form-block ref="search" class="form-inline form_box">
         <div class="search flex_item">
             <slot name="form"></slot>
             <el-button class="form_btn" type="primary" @click="search()">搜索</el-button>
@@ -8,7 +8,7 @@
         <div class="extra">
             <slot name="extra"></slot>
         </div>
-    </el-form>
+    </form-block>
 </template>
 <script>
 export default {
@@ -23,11 +23,6 @@ export default {
     }
 }
 </script>
-<style lang="less">
-.el-form-item--small .el-form-item__content{
-    width: 120px;
-}
-</style>
 <style lang="less" scoped>
 .form_box{
     display: flex;
@@ -42,6 +37,7 @@ export default {
     padding: 20px 20px 0;
     box-sizing: border-box;
     background: #fff;
+    border: 1px solid @borderColor;
     .form_btn{
         margin-bottom: 18px;
     }

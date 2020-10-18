@@ -63,6 +63,7 @@ export default {
     bottom: 0;
     left: 0;
     z-index: 1001;
+    border-right: 1px solid @borderColor;
     overflow: hidden;
 }
 </style>

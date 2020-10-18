@@ -1,41 +1,56 @@
 <template>
     <div class="table_wrap">
-        <el-table
-            class="table_box"
-            :data="data"
-            :height="tableHeight"
-            :row-class-name="showEmergencyLine"
-            :highlight-current-row="true"
-            border
-            element-loading-spinner="el-icon-loading"
-            element-loading-text="拼命加载中"
-            element-loading-background="rgba(255, 255, 255, 0.8)"
-            @selection-change="handleSelectionChange"
-            @sort-change="sortChange"
-            v-loading.lock="isLock"
-            header-cell-class-name="table_header">
-            <template v-for="header in tableHeader">
-                <el-table-column
-                    :prop="header.key"
-                    :key="header.label"
-                    :label="header.label"
-                    :width="header.width"
-                    :fixed="header.fixed"
-                    :sortable="header.sortable"
-                    :align="header.align || 'center'"
-                    header-align="center">
-                        <template slot="header">
-                            <slot :name="'header-'+header.key"></slot>
-                        </template>
-                        <template slot-scope="scope">
-                            <slot :name="scope.column.property" :row="scope.row" :$index="scope.$index" >
-                                <ex-slot v-if="header.render" :render="header.render" :row="scope.row" :index="scope.$index" :column="header" />
-                                <div v-else>{{scope.row[scope.column.property]}}</div>
-                            </slot>
-                        </template>
-                </el-table-column>
-            </template>
-        </el-table>
+        <!-- <el-scrollbar :native="true" wrapStyle="" wrapClass="scroll_table" :noresize="false" tag="section"> -->
+            <el-table
+                class="table_box"
+                :data="data"
+                :height="tableHeight"
+                :row-class-name="showEmergencyLine"
+                :highlight-current-row="true"
+                border
+                element-loading-spinner="el-icon-loading"
+                element-loading-text="拼命加载中"
+                element-loading-background="rgba(255, 255, 255, 0.8)"
+                @selection-change="handleSelectionChange"
+                @sort-change="sortChange"
+                v-loading.lock="isLock"
+                header-cell-class-name="table_header">
+                <template v-for="header in tableHeader">
+                    <el-table-column
+                        v-if="header.type"
+                        :type="header.type"
+                        :prop="header.key"
+                        :key="header.label"
+                        :label="header.label"
+                        :width="header.width"
+                        :fixed="header.fixed"
+                        :align="header.align || 'center'"
+                        header-align="center">
+                    </el-table-column>
+                    <el-table-column
+                        v-else
+                        :prop="header.key"
+                        :key="header.label"
+                        :label="header.label"
+                        :width="header.width"
+                        :fixed="header.fixed"
+                        :sortable="header.sortable"
+                        :align="header.align || 'center'"
+                        header-align="center">
+                            <template slot="header">
+                                <slot :name="'header-'+header.key"></slot>
+                            </template>
+                            <template slot-scope="scope">
+                                <slot :name="scope.column.property" :row="scope.row" :$index="scope.$index" >
+                                    <ex-slot v-if="header.render" :render="header.render" :row="scope.row" :index="scope.$index" :column="header" />
+                                    <div v-else>{{scope.row[scope.column.property]}}</div>
+                                </slot>
+                            </template>
+                    </el-table-column>
+                </template>
+                <div slot="empty">暂无数据,自定义想写成啥就写成啥</div>
+            </el-table>
+        <!-- </el-scrollbar> -->
         <div class="pagination_box flex">
             <el-pagination
                 background
@@ -148,16 +163,16 @@ export default {
     padding: 20px;
     background: #fff;
     box-sizing: border-box;
+    border: 1px solid @borderColor;
     overflow: hidden;
-    .table_scroll{
+    .scroll_table{
         flex: 1;
         -webkit-flex:1;
-        overflow: hidden;
     }
     .table_box{
         flex: 1;
         -webkit-flex:1;
-        overflow: hidden;
+        // overflow: hidden;
     }
 }
 .pagination_box{

@@ -3,15 +3,15 @@
         <template #header>
           <form-search @search="search()" @reset="reset()">
               <template slot="form">
-                  <el-form-item label="审批人">
-                    <el-input v-model="state.formInline.user" placeholder="审批人"></el-input>
-                  </el-form-item>
-                  <el-form-item label="活动区域">
-                    <el-select v-model="state.formInline.region" placeholder="活动区域">
-                      <el-option label="区域一" value="shanghai"></el-option>
+                  <form-column label="审批人">
+                    <el-input v-model="state.formInline.user" placeholder="请输入审批人"></el-input>
+                  </form-column>
+                  <form-column>
+                    <el-select v-model="state.formInline.region" clearable placeholder="请选择活动区域">
+                      <el-option label="区域一2" value="shanghai"></el-option>
                       <el-option label="区域二" value="beijing"></el-option>
                     </el-select>
-                  </el-form-item>
+                  </form-column>
               </template>
               <template slot="extra">
                 <el-button @click="showModalEvent">显示modal</el-button>
@@ -156,14 +156,13 @@ export default {
         ],
         tableLabel: [
               { label: '多选', key:'checkbox',type: 'selection',fixed:'left', width: '80',},
-              { label: '用户名', key: 'usr', width: '150',sortable:true},
-              { label: '公司名称', key: 'company',width:'180'},
-              { label: '办公邮箱', key: 'email', width:'150'},
+              { label: '用户名', key: 'usr', width: 150,sortable:true},
+              { label: '公司名称', key: 'company',width:180},
+              { label: '办公邮箱', key: 'email', width:150},
               { label: '注册时间', key: 'registTime',width:120},
-              { label: '测试时间', key:'operate',fixed:'right',width:160},
-              { label: '审核状态', key: 'status',width:120, render:  (row) => {
-                  if (row.status === 0) {
-                    return '未审核'
+              { label: '审核状态', key: 'status',width:150, render:  (row) => {
+                if (row.status === 0) {
+                  return '未审核'
                   } else if (row.status === 1) {
                     return '审核通过'
                   } else if(row.status ===2) {
@@ -173,11 +172,12 @@ export default {
                   }
                 }       
               },
+              { label: '测试时间', key:'operate',fixed:'right',width:160},
               {
                 label:'操作',
                 key:'action',
                 fixed:'right',
-                width:"150"
+                width:150
               }
             ]
       })
